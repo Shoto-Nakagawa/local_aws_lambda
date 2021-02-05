@@ -1,42 +1,34 @@
 import json
-
-# import requests
-
+import boto3
+import os
+from datetime import datetime
 
 def lambda_handler(event, context):
-    """Sample pure Lambda function
+    try:
+        event_body = json.loads(event["body"])
+        if "local" in event_body and event_body["local"] == True:
+            dynamodb = boto3.resource("dynamodb", endpoint_url="http://dynamodb:8000")
+        else:
+            dynamodb = boto3.resource("dynamodb")
 
-    Parameters
-    ----------
-    event: dict, required
-        API Gateway Lambda Proxy Input Format
+        table = dynamodb.Table("Demo")
+        table.put_item(
+            Item={
+                "Key": event_body["key"],
+                "CreateDate": datetime.utcnow().isoformat()
+            }
+        )
 
-        Event doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html#api-gateway-simple-proxy-for-lambda-input-format
-
-    context: object, required
-        Lambda Context runtime methods and attributes
-
-        Context doc: https://docs.aws.amazon.com/lambda/latest/dg/python-context-object.html
-
-    Returns
-    ------
-    API Gateway Lambda Proxy Output Format: dict
-
-        Return doc: https://docs.aws.amazon.com/apigateway/latest/developerguide/set-up-lambda-proxy-integrations.html
-    """
-
-    # try:
-    #     ip = requests.get("http://checkip.amazonaws.com/")
-    # except requests.RequestException as e:
-    #     # Send some context about this error to Lambda Logs
-    #     print(e)
-
-    #     raise e
-
-    return {
-        "statusCode": 200,
-        "body": json.dumps({
-            "message": "hello world",
-            # "location": ip.text.replace("\n", "")
-        }),
+        return {
+            "statusCode": 200,
+            "body": json.dumps({
+                "message": "succeeded",
+            }),
+        }
+    except Exception as e:
+        return {
+            "statusCode": 500,
+            "body": json.dumps({
+                "message": e.args
+            }),
     }
