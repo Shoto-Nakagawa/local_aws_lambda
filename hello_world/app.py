@@ -6,18 +6,18 @@ from datetime import datetime
 def lambda_handler(event, context):
     try:
         event_body = json.loads(event["body"])
+        # ローカル判断
         if "local" in event_body and event_body["local"] == True:
+            # ローカル環境のDynamoDBを選択
             dynamodb = boto3.resource("dynamodb", endpoint_url="http://dynamodb:8000")
         else:
+            # AWS環境のDynamoDBを選択
             dynamodb = boto3.resource("dynamodb")
 
+        # 対象テーブルの情報を取得
         table = dynamodb.Table("Demo")
-        table.put_item(
-            Item={
-                "Key": event_body["key"],
-                "CreateDate": datetime.utcnow().isoformat()
-            }
-        )
+        # パラメータ情報を対象のテーブルに登録
+        table.put_item(Item=event_body)
 
         return {
             "statusCode": 200,
