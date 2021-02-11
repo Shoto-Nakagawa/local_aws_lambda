@@ -23,3 +23,8 @@ start:
 delete:
 	aws dynamodb delete-table --table-name XEEX-EXC-Data --endpoint-url http://localhost:8000
 
+# XEEX-EXC-Dynamodbコンテナを削除
+clean:
+	docker stop XEEX-EXC-Dynamodb 
+	docker rm XEEX-EXC-Dynamodb 
+
