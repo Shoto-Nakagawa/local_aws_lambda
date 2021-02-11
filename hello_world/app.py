@@ -15,7 +15,7 @@ def lambda_handler(event, context):
             dynamodb = boto3.resource("dynamodb")
 
         # 対象テーブルの情報を取得
-        table = dynamodb.Table("Demo")
+        table = dynamodb.Table("XEEX-EXC-Data")
         # パラメータ情報を対象のテーブルに登録
         table.put_item(Item=event_body)
 
