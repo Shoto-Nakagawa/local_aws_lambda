@@ -2,6 +2,7 @@ import json
 import boto3
 import os
 from datetime import datetime
+import uuid
 
 def lambda_handler(event, context):
     try:
@@ -9,13 +10,17 @@ def lambda_handler(event, context):
         # ローカル判断
         if "local" in event_body and event_body["local"] == True:
             # ローカル環境のDynamoDBを選択
-            dynamodb = boto3.resource("dynamodb", endpoint_url="http://dynamodb:8000")
+            dynamodb = boto3.resource("dynamodb", endpoint_url="http://XEEX-EXC-Dynamodb:8000")
         else:
             # AWS環境のDynamoDBを選択
             dynamodb = boto3.resource("dynamodb")
 
         # 対象テーブルの情報を取得
-        table = dynamodb.Table("Demo")
+        table = dynamodb.Table("XEEX-EXC-Data")
+
+        # UUID生成、登録データ（json）に追加
+        event_body['UUID'] = str(uuid.uuid4())
+
         # パラメータ情報を対象のテーブルに登録
         table.put_item(Item=event_body)
 
