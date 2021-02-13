@@ -1,0 +1,19 @@
+{
+  "TableName": "XEEX-EXC-Software",
+  "KeySchema": [
+    {
+      "AttributeName": "SoftwareId",
+      "KeyType": "HASH"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "SoftwareId",
+      "AttributeType": "S"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": 10,
+    "WriteCapacityUnits": 10
+  }
+}

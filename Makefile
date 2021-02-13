@@ -7,9 +7,9 @@ docker-run:
 docker-start:
 	docker start XEEX-EXC-Dynamodb 
 
-# 3.テーブル作成（テーブル名：XEEX-EXC-Data）
+# 3.テーブル作成 （実行時のコマンド：make create table=xxx）
 create:
-	aws dynamodb create-table --cli-input-json file://./db/XEEX-EXC-Data.json --endpoint-url http://localhost:8000
+	aws dynamodb create-table --cli-input-json file://./db/${table}.json --endpoint-url http://localhost:8000
 
 # 5.ビルド
 build:
