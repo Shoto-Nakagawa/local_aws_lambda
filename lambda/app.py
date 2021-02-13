@@ -28,6 +28,7 @@ def lambda_handler(event, context):
             "statusCode": 200,
             "body": json.dumps({
                 "message": "succeeded",
+                "data":event_body
             }),
         }
     except Exception as e:
