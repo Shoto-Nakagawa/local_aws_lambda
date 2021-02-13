@@ -2,6 +2,7 @@ import json
 import boto3
 import os
 from datetime import datetime
+import uuid
 
 def lambda_handler(event, context):
     try:
@@ -16,6 +17,10 @@ def lambda_handler(event, context):
 
         # 対象テーブルの情報を取得
         table = dynamodb.Table("XEEX-EXC-Data")
+
+        # UUID生成、登録データ（json）に追加
+        event_body['UUID'] = str(uuid.uuid4())
+
         # パラメータ情報を対象のテーブルに登録
         table.put_item(Item=event_body)
 
