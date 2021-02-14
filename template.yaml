@@ -18,11 +18,16 @@ Resources:
       Handler: app.lambda_handler
       Runtime: python3.7
       Events:
-        HelloWorld:
+        XeexExcInsert:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /xeex-api
             Method: post
+        XeexExcQuery:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /xeex-api
+            Method: get
 
 Outputs:
   # ServerlessRestApi is an implicit API created out of Events key under Serverless::Function
