@@ -6,6 +6,6 @@ codeuri = "lambda/"
 runtime = "python3.7"
 source_md5 = ""
 packagetype = "Zip"
-functions = ["HelloWorldFunction"]
+functions = ["XeexExcFunction"]
 
 [layer_build_definitions]
