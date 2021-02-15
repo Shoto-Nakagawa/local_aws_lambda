@@ -1,7 +1,7 @@
 import json
 import boto3
 import uuid
-from boto3.dynamodb.conditions import Key
+from boto3.dynamodb.conditions import Attr,Key
 import time
 from decimal import Decimal
 
@@ -78,7 +78,8 @@ def XEEX_EXC_Query(event):
     table = dynamodb.Table("XEEX-EXC-Data")
 
     # DynamoDBへのquery処理実行
-    response = table.query(KeyConditionExpression=Key("UUID").eq(event_body["UUID"]))
+    response = table.query(KeyConditionExpression=Key("UUID").eq(event_body["UUID"]),
+                           FilterExpression=Attr('content').contains(event_body["content"] if "content" in event_body else "" ))
     Items = response["Items"]
 
     return Items
