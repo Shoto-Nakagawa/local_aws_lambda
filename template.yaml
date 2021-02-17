@@ -11,10 +11,10 @@ Globals:
     Timeout: 10
 
 Resources:
-  XeexExcFunction:
+  XeexExcDataFunction:
     Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
     Properties:
-      CodeUri: lambda/
+      CodeUri: lambda/XeexExcData/
       Handler: app.lambda_handler
       Runtime: python3.7
       Events:
@@ -27,6 +27,40 @@ Resources:
           Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
           Properties:
             Path: /xeex-api
+            Method: get
+  XeexExcSoftwareFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: lambda/XeexExcSoftware
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        XeexExcInsert:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /xeex-api-sw
+            Method: post
+        XeexExcQuery:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /xeex-api-sw
+            Method: get
+  XeexExcMappingFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: lambda/XeexExcMapping
+      Handler: app.lambda_handler
+      Runtime: python3.7
+      Events:
+        XeexExcInsert:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /xeex-api-mp
+            Method: post
+        XeexExcQuery:
+          Type: Api # More info about API Event Source: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#api
+          Properties:
+            Path: /xeex-api-mp
             Method: get
 
 Outputs:
