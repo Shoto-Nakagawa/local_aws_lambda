@@ -1,27 +1,27 @@
 
 # 1.DynamoDB-local用のコンテナ作成（コンテナ名：dynamodb）
-docker-run:
+docker-create:
 	docker run --network XEEX-EXC-Network --name XEEX-EXC-Dynamodb -p 8000:8000 amazon/dynamodb-local -jar DynamoDBLocal.jar -sharedDb
 
-# 2.dynamodbコンテナを実行
+# 2.dynamodbコンテナを実行（バックグラウンド実行）
 docker-start:
 	docker start XEEX-EXC-Dynamodb 
 
-# 3.テーブル作成 （実行時のコマンド：make create table=xxx）
+# 3.テーブル作成 （作成テーブル：例 XEEX-EXC-Data）
 create:
 	aws dynamodb create-table --cli-input-json file://./db/${table}.json --endpoint-url http://localhost:8000
 
-# 5.ビルド
+# 4.ビルド
 build:
 	sam build
 
-# 6.Lambda・APIゲートウェイ起動
+# 5.Lambda・APIゲートウェイ起動
 start:
 	sam local start-api --docker-network XEEX-EXC-Network
 
-# テーブル削除（テーブル名：XEEX-EXC-Data）
+# テーブル削除（作成テーブル：例 XEEX-EXC-Data）
 delete:
-	aws dynamodb delete-table --table-name XEEX-EXC-Data --endpoint-url http://localhost:8000
+	aws dynamodb delete-table --table-name ${table} --endpoint-url http://localhost:8000
 
 # XEEX-EXC-Dynamodbコンテナを削除
 clean:
