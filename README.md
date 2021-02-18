@@ -58,5 +58,6 @@ make clean
 npm start
 ```
 
-[画面イメージ]
+【画面イメージ】
+
 <img src="DynamoDB_EditScreen.png" width="600px" />
