@@ -69,7 +69,6 @@ def XEEX_EXC_Query(event):
     # パラメータ情報 取得
     event_body = json.loads(event["body"])
     
-    # dynamodb = boto3.resource("dynamodb", endpoint_url="http://XEEX-EXC-Dynamodb:8000")
     # ローカル判断
     if "local" in event_body and event_body["local"] == True:
         # ローカル環境のDynamoDBを選択
