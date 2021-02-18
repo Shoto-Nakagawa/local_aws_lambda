@@ -57,3 +57,6 @@ make clean
 ```bash
 npm start
 ```
+
+[画面イメージ]
+<img src="DynamoDB_EditScreen.png" width="600px" />
