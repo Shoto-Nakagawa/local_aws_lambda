@@ -9,32 +9,38 @@ EX Connect 用テーブル（DynamoDB）に API 経由でデータ登録・取�
 
 ## 環境構築手順
 
-1.DynamoDB-local 用のコンテナ作成（コンテナ名：dynamodb）
+1.docker で使用するネットワークを作成（ネットワーク名：XEEX-EXC-Network）
+
+```bash
+make docker-net
+```
+
+2.DynamoDB-local 用のコンテナ作成（コンテナ名：dynamodb）
 ※実行後、Ctrl + C で実行停止
 
 ```bash
 make docker-create
 ```
 
-2.dynamodb コンテナを実行（バックグラウンド実行）
+3.dynamodb コンテナを実行（バックグラウンド実行）
 
 ```bash
 make docker-start
 ```
 
-3.テーブル作成（作成テーブル：例 XEEX-EXC-Data）
+4.テーブル作成（作成テーブル：例 XEEX-EXC-Data）
 
 ```bash
 make create table=XEEX-EXC-Data
 ```
 
-4.ビルド
+5.ビルド
 
 ```bash
 make bulld
 ```
 
-5.Lambda・API ゲートウェイ起動
+6.Lambda・API ゲートウェイ起動
 
 ```bash
 make start
