@@ -40,7 +40,7 @@ def lambda_handler(event, context):
 def XEEX_EXC_Insert(event):
     event_body = json.loads(event["body"])
     # ローカル判断
-    if "local" in event_body and event_body["local"] == True:
+    if "Local" in event_body and event_body["Local"] == True:
         # ローカル環境のDynamoDBを選択
         dynamodb = boto3.resource("dynamodb", endpoint_url="http://XEEX-EXC-Dynamodb:8000")
     else:
@@ -71,7 +71,7 @@ def XEEX_EXC_Query(event):
     
     # dynamodb = boto3.resource("dynamodb", endpoint_url="http://XEEX-EXC-Dynamodb:8000")
     # ローカル判断
-    if "local" in event_body and event_body["local"] == True:
+    if "Local" in event_body and event_body["Local"] == True:
         # ローカル環境のDynamoDBを選択
         dynamodb = boto3.resource("dynamodb", endpoint_url="http://XEEX-EXC-Dynamodb:8000")
     else:
@@ -82,8 +82,7 @@ def XEEX_EXC_Query(event):
     table = dynamodb.Table("XEEX-EXC-Data")
 
     # DynamoDBへのquery処理実行
-    response = table.query(KeyConditionExpression=Key("UUID").eq(event_body["UUID"]),
-                           FilterExpression=Attr('content').contains(event_body["content"] if "content" in event_body else "" ))
+    response = table.query(KeyConditionExpression=Key("UUID").eq(event_body["UUID"]))
     Items = response["Items"]
 
     return Items
