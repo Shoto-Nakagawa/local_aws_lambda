@@ -40,7 +40,7 @@ def lambda_handler(event, context):
 def XEEX_EXC_Insert(event):
     event_body = json.loads(event["body"])
     # ローカル判断
-    if "local" in event_body and event_body["local"] == True:
+    if "Local" in event_body and event_body["Local"] == True:
         # ローカル環境のDynamoDBを選択
         dynamodb = boto3.resource("dynamodb", endpoint_url="http://XEEX-EXC-Dynamodb:8000")
     else:
@@ -49,9 +49,6 @@ def XEEX_EXC_Insert(event):
 
     # 対象テーブルの情報を取得
     table = dynamodb.Table("XEEX-EXC-Software")
-
-    # UUID生成、登録データ（json）に追加
-    event_body['UUID'] = str(uuid.uuid4())
     
     # 現在時刻の取得、登録データ（json）に追加
     event_body['Date'] = int(time.time() * 1000)
@@ -70,7 +67,7 @@ def XEEX_EXC_Query(event):
     event_body = json.loads(event["body"])
     
     # ローカル判断
-    if "local" in event_body and event_body["local"] == True:
+    if "Local" in event_body and event_body["Local"] == True:
         # ローカル環境のDynamoDBを選択
         dynamodb = boto3.resource("dynamodb", endpoint_url="http://XEEX-EXC-Dynamodb:8000")
     else:

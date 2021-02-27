@@ -18,12 +18,12 @@ def XEEX_EXC_Log_Insert(event):
     event_body["Complete"] = 0
     event_body["State"] = 0
     event_body["Date"] = event["Date"]
-    event_body["local"] = event["local"]
+    event_body["Local"] = event["Local"]
 
-    del event_body["content"]
+    del event_body["Content"]
 
     # ローカル判断
-    if "local" in event_body and event_body["local"] == True:
+    if "Local" in event_body and event_body["Local"] == True:
         # ローカル環境のDynamoDBを選択
         dynamodb = boto3.resource("dynamodb", endpoint_url="http://XEEX-EXC-Dynamodb:8000")
     else:
@@ -44,7 +44,7 @@ def XEEX_EXC_Query(event):
     event_body = json.loads(event["body"])
 
     # ローカル判断
-    if "local" in event_body and event_body["local"] == True:
+    if "Local" in event_body and event_body["Local"] == True:
         # ローカル環境のDynamoDBを選択
         dynamodb = boto3.resource("dynamodb", endpoint_url="http://XEEX-EXC-Dynamodb:8000")
     else:
@@ -56,7 +56,7 @@ def XEEX_EXC_Query(event):
 
     # DynamoDBへのquery処理実行
     response = table.query(KeyConditionExpression=Key("UUID").eq(event_body["UUID"]),
-                           FilterExpression=Attr('content').contains(event_body["content"] if "content" in event_body else "" ))
+                           FilterExpression=Attr('Content').contains(event_body["Content"] if "Content" in event_body else "" ))
     Items = response["Items"]
 
     return Items
