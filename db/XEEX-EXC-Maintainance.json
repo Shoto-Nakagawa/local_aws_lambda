@@ -1,0 +1,19 @@
+{
+  "TableName": "XEEX-EXC-Maintainance",
+  "KeySchema": [
+    {
+      "AttributeName": "UUID",
+      "KeyType": "HASH"
+    }
+  ],
+  "AttributeDefinitions": [
+    {
+      "AttributeName": "UUID",
+      "AttributeType": "S"
+    }
+  ],
+  "ProvisionedThroughput": {
+    "ReadCapacityUnits": 10,
+    "WriteCapacityUnits": 10
+  }
+}
